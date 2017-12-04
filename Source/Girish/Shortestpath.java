@@ -25,12 +25,13 @@ class ShortestPath
     }
  
     // A utility function to print the constructed distance array
-    void printSolution(int dist[], int n,ArrayList<Integer> flags,int src)
+    void printSolution(int dist[], int n,ArrayList<Integer> flags,int src, int typ)
     {
     	int min=999;
     	int minv = 0;
     	int flag = 0;
-        System.out.println("Vertex   Distance from Source");
+        
+        System.out.println("Vertex Distance from Source");
         for (int i = 0; i < V; i++)
         {
             System.out.println(i+" tt "+dist[i]);
@@ -69,10 +70,10 @@ class ShortestPath
         flags.add(minv);
         }
         int ar[] = Available.get(src);
-        if(ar[1]>=1)
+        if(ar[typ+1]>=1)
         {
         	System.out.println("Vehicle Available from "+"'"+src+"'"+"and is on it's way to destination");
-        	ar[1]--;
+        	ar[typ+1]--;
         }
         else
         {
@@ -98,7 +99,7 @@ class ShortestPath
     // Funtion that implements Dijkstra's single source shortest path
     // algorithm for a graph represented using adjacency matrix
     // representation
-    void dijkstra(int graph[][], int src,ArrayList<Integer> flagsguy)
+    void dijkstra(int graph[][], int src,ArrayList<Integer> flagsguy,int typ)
     {
         int dist[] = new int[V]; // The output array. dist[i] will hold
                                  // the shortest distance from src to i
@@ -142,14 +143,14 @@ class ShortestPath
         }
  
         // print the constructed distance array
-        printSolution(dist, V,flagsguy,src);
+        printSolution(dist, V,flagsguy,src,typ);
     }
  
     // Driver method
     public static void main (String[] args)
     {
         /* Let us create the example graph discussed above */
-        int src;
+        int src,typ;
         Available = new ArrayList<int[]>();
         int i[] = {2,0,1};
         Available.add(0,i);
@@ -186,7 +187,9 @@ class ShortestPath
         {
         System.out.println("enter Source");
         src=in.nextInt();
-        t.dijkstra(graph, src,flags);
+        System.out.println("enter type fire:1 Police:2 Ambulance:3");
+        typ=in.nextInt();
+        t.dijkstra(graph, src,flags,typ);
         }
     }
 }
