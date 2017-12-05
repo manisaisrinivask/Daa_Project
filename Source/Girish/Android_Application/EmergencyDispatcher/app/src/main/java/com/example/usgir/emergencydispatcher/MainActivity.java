@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     RadioGroup group;
     RadioButton button1,button2,button3;
     int type;
+    int id;
     String vehicle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,15 +203,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         int ar[] = Available.get(src);
         if(ar[type]>=1)
         {
+            id = (src*100)+(type*10)+ar[type];
             //Toast.makeText(getApplicationContext(),"Vehicle Started from "+"'"+zipcodes.get(src)+"'"+"and is"+" 0 miles away from destination",Toast.LENGTH_SHORT).show();
-            Status = vehicle+"Available from "+"'"+zipcodes.get(src)+"'"+"and is on it's way to destination";
+            Status = vehicle+" '"+id+"'"+" Available from "+"'"+zipcodes.get(src)+"'"+"and is on it's way to destination";
             ar[type]--;
             show(Status);
             //builder.setMessage(Status);
         }
         else
         {
-            String stat1 = vehicle + "Not Available from "+zipcodes.get(src);
+            id = (src*100)+(type*10)+ar[type];
+            String stat1 = vehicle +" Not Available from "+zipcodes.get(src);
             //Toast.makeText(getApplicationContext(),"Vehicle Not Availabe from "+zipcodes.get(src),Toast.LENGTH_SHORT).show();
             //System.out.println("Nearest node to source is:  "+flags.get(0));
             for (int x = 0;x < flags.size();x++)
@@ -218,8 +221,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 int l[] = Available.get(flags.get(x));
                 if (l[type]>=1)
                 {
+                    id = ((flags.get(x))*100)+(type*10)+l[type];
                    //Toast.makeText(getApplicationContext(),"Vehicle Started from "+"'"+zipcodes.get(flags.get(x))+"'"+"and is"+dist[flags.get(x)]+" miles away from destination",Toast.LENGTH_SHORT).show();
-                    Status = vehicle + "Started from "+"'"+zipcodes.get(flags.get(x))+"'"+"and is "+dist[flags.get(x)]+" miles away from destination";
+                    Status = vehicle+" '"+id+"'" + "Started from "+"'"+zipcodes.get(flags.get(x))+"'"+"and is "+dist[flags.get(x)]+" miles away from destination";
                     stat1 = stat1+"\n\n"+Status;
                     l[type]--;
                     show(stat1);
@@ -230,8 +234,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
                 else
                 {
+                    id = ((flags.get(x))*100)+(type*10)+l[type];
                     //Toast.makeText(getApplicationContext(),vehicle+ "Not Availabe from "+zipcodes.get(flags.get(x)),Toast.LENGTH_SHORT).show();
-                    Status = vehicle + " Not Availabe from "+zipcodes.get(flags.get(x));
+                    Status = vehicle +" Not Availabe from "+zipcodes.get(flags.get(x));
                     stat1 = stat1 + "\n\n"+Status;
                 }
             }
